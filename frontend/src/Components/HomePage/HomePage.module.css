@@ -1,0 +1,96 @@
+.body{
+    display: flex;
+    width: 430px;
+    height: 932px;
+    flex-direction: column;
+    background-color: rgba(7,8,31,255);
+}
+
+.photo{
+    margin-left: 2.8rem;
+    width: 350px;
+    height: 450px;
+    margin-top: 1rem;
+}
+
+.secondContainer{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.heading1{
+    /* background-color: red; */
+    margin-left: 4rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+}
+
+.heading2{
+    margin-left: 4.4rem;
+    width: 350px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    
+}
+.heading4{
+    font-size: 1.2rem;
+    margin-left: 3.5rem;
+}
+.heading6{
+    text-transform: uppercase;
+    margin-left: 6.7rem;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.heading3{
+        margin-top: 0.4rem;
+        margin-left: 9.8rem;
+        width: 150px;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+}
+
+.buttonPage{
+    display: flex;
+    width: 250px;
+    flex-direction: column;
+    height: 150px;
+    align-items: center;
+    margin-left: 3.3rem;
+}
+  .haveAccount:hover {
+    letter-spacing: 1px;
+    background-color: rgba(66,92,215,255);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(234, 243, 210) 0px 7px 29px 0px;
+  }
+  
+  .haveAccount:active {
+    letter-spacing: 1px;
+    background-color:rgba(66,92,215,255);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(237, 248, 235) 0px 0px 0px 0px;
+  }
+.haveAccount{
+    height:3rem;
+    border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+    font-size: 1.3rem;
+    margin-left: 3.5rem;
+    margin-top: 1rem;
+    width: 17rem;
+    
+}
+
+
