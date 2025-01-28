@@ -21,6 +21,8 @@
 }
 
 .footerButton {
+  text-decoration: none;
+  text-underline-offset: none;
   display: flex;
   flex-direction: column;
   align-items: center;

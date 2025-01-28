@@ -1,13 +1,11 @@
-import { useState } from 'react'
-import './App.css'
-import HomePage from './Components/HomePage/HomePage'
-import DashBoard from './Components/DashBoard/DashBoard'
-import Transaction from './Components/Transaction/Transaction'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Root from './Root';
+import { useState } from "react";
+import "./App.css";
+import HomePage from "./Components/HomePage/HomePage";
+import DashBoard from "./Components/DashBoard/DashBoard";
+import Transaction from "./Components/Transaction/Transaction";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./Root";
+import Savings from "./Components/Savings/Savings";
 function App() {
   const router = createBrowserRouter([
     {
@@ -27,15 +25,18 @@ function App() {
             },
             {
               path: "transaction",
-              element: <Transaction />
-            }
-
-          ]
-          
+              element: <Transaction />,
+            },
+            {
+              path: "savings",
+              element: <Savings />,
+            },
+          ],
         },
-      ]}
-    ])
-  return <RouterProvider router={router} />
+      ],
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

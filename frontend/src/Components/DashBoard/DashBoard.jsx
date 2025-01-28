@@ -2,6 +2,7 @@ import classes from './DashBoard.module.css';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import Header from '../UI/Header';
+import { NavLink } from 'react-router-dom';
 export default function DashBoard() {
   const [currency, setCurrency] = useState("Dollar");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -109,7 +110,7 @@ export default function DashBoard() {
       <div className={classes.title}>Your Accounts</div>
 
       <div className={classes.squareOptionsContainer}>
-        <motion.button className={classes.squareButton} whileHover={{ scale: 1.1 }}>Savings</motion.button>
+        <NavLink to={'/user/savings'}><motion.button className={classes.squareButton} whileHover={{ scale: 1.1 }}>Savings</motion.button></NavLink>
         <motion.button className={classes.squareButton} whileHover={{ scale: 1.1 }}>Checkings</motion.button>
         <motion.button className={classes.squareButton} whileHover={{ scale: 1.1 }}>Liability</motion.button>
         <motion.button className={classes.squareButton} whileHover={{ scale: 1.1 }}>Investments</motion.button>
