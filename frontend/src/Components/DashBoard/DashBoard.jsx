@@ -106,7 +106,7 @@ export default function DashBoard() {
         </div>
       </div>
 
-      <div className={classes.title}>Upcoming payments</div>
+      <div className={classes.title}>Your Accounts</div>
 
       <div className={classes.squareOptionsContainer}>
         <motion.button className={classes.squareButton} whileHover={{ scale: 1.1 }}>Savings</motion.button>

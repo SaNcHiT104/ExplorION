@@ -7,12 +7,11 @@
 }
 
 .heading{
-    font-family: "Montserrat", sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
     margin-top: 13%;
-    margin-left: 4%;
+    margin-left: 20%;
     margin-right: 5%;
-    text-transform: uppercase;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
 }
 
 .btn{
@@ -22,7 +21,6 @@
     width: 30%;
     margin-top: 10%;
     margin-right: 15%;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .btn:hover {
