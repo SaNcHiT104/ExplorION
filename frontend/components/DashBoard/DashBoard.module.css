@@ -10,7 +10,7 @@
 }
 
 .dashboardContainer {
-   background: linear-gradient(to right, black, #001437);
+   background: linear-gradient(to right, rgb(0, 0, 0), #002e7d);
   color: white;
   width: auto;
   height: 50%;
@@ -54,7 +54,8 @@
   height: 10%;
   width: auto;
   padding: 10px;
-  margin-top: 3%;
+  margin-left: 80%;
+ 
 }
 
 /* Buttons Section */
@@ -104,16 +105,16 @@
 .squareOptionsContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 5px;
   justify-items: center;
   width: 90%;
-  height: 40%;
+  height: 35%;
   margin: 10px 5%;
 }
 
 .squareButton {
   width: 100%;
-  height: 100%;
+  height: 60%;
   background:linear-gradient(to bottom right,grey,white,0.2);
   color: #000000;
   border: 1px solid #fbf9f9;
@@ -126,6 +127,11 @@
   transition: background-color 0.3s, transform 0.2s;
 }
 
+.title{
+  text-transform: uppercase;
+  margin-left: 35%;
+  margin-top: 10%;
+}
 .squareButton:hover {
   background-color: #dddddd;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);

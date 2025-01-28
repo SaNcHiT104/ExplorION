@@ -1,105 +1,105 @@
 .body{
-    display: flex;
-    width: 430px;
-    height: 932px;
-    flex-direction: column;
-    background-color: #001437;
+  display: flex;
+  width: 430px;
+  height: 932px;
+  flex-direction: column;
+  background-color: #001437;
 }
 
 .photo{
-    width: 430px;
-    height: 350px;
-    
-    margin-bottom: 4rem;
+  width: 430px;
+  height: 350px;
+  
+  margin-bottom: 4rem;
 }
 
 .secondContainer{
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
 }
 
 .heading1{
-    /* background-color: red; */
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    margin-left: 2.5rem;
-    font-size: 1.5rem;
-    
+  /* background-color: red; */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-left: 2.5rem;
+  font-size: 1.5rem;
   
-    text-transform: uppercase;
+
+  text-transform: uppercase;
 }
 
 .heading2{
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    margin-left: 3rem;
-    width: 350px;
-    margin-top: -3.8rem;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
+font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-left: 3rem;
+  width: 350px;
+  margin-top: -3.8rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
 }
 .heading4{
-  margin-top: -8rem;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    font-size: 1.5rem;
-    margin-left: 2rem;
+margin-top: -8rem;
+font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.5rem;
+  margin-left: 2rem;
 }
 .heading6{
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    text-transform: uppercase;
-    margin-left: 10rem;
-    font-size: 1.5rem;
-    
-    margin-top: -8rem;
+font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-transform: uppercase;
+  margin-left: 10rem;
+  font-size: 1.5rem;
+  
+  margin-top: -8rem;
 }
 .heading3{
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-        margin-top: -8rem;
-        margin-left: 10.5rem;
-        width: 150px;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
+font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+      margin-top: -8rem;
+      margin-left: 10.5rem;
+      width: 150px;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
 }
 
 .buttonPage{
-  
-    display: flex;
-    width: 250px;
-    flex-direction: column;
-    height: 150px;
-    align-items: center;
-  
+
+  display: flex;
+  width: 250px;
+  flex-direction: column;
+  height: 150px;
+  align-items: center;
+
 }
-  .haveAccount:hover {
-    letter-spacing: 1px;
-    background-color: rgba(66,92,215,255);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(234, 243, 210) 0px 7px 29px 0px;
-  }
-  
-  .haveAccount:active {
-    letter-spacing: 1px;
-    background-color:rgba(66,92,215,255);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(237, 248, 235) 0px 0px 0px 0px;
-  }
+.haveAccount:hover {
+  letter-spacing: 1px;
+  background-color: rgba(66,92,215,255);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(234, 243, 210) 0px 7px 29px 0px;
+}
+
+.haveAccount:active {
+  letter-spacing: 1px;
+  background-color:rgba(66,92,215,255);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(237, 248, 235) 0px 0px 0px 0px;
+}
 .haveAccount{
 
-  text-transform: uppercase;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  height:3rem;
-  border-radius: 50px;
-  cursor: pointer;
-  border: 0;
-    font-size: 1.3rem;
-    margin-left: 5rem;
-    margin-bottom: 10rem;
-    width: 17rem;
-    
+text-transform: uppercase;
+font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+height:3rem;
+border-radius: 50px;
+cursor: pointer;
+border: 0;
+  font-size: 1.3rem;
+  margin-left: 5rem;
+  margin-bottom: 10rem;
+  width: 17rem;
+  
 }
 
 

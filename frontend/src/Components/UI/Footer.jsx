@@ -54,7 +54,6 @@ const Footer = () => {
           <span>Transaction</span>
         </button>
         </NavLink>
-        <NavLink to={'/user/analytics'}>
         <button className={styles.footerButton}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -70,9 +69,8 @@ const Footer = () => {
               d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25V9m9 12.75V19.5a2.25 2.25 0 00-2.25-2.25h-7.5A2.25 2.25 0 005.25 19.5v2.25m10.5-6.75a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-          <span>Analytics</span>
+          <span>Profile</span>
         </button>
-        </NavLink>
       </div>
     </footer>
   );

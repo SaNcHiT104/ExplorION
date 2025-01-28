@@ -1,0 +1,28 @@
+.container{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.heading{
+    width: 80%;
+    margin-top: 5%;
+    height: 5%;
+    margin-left: 20%;
+    font-size: 1.4rem;
+}
+
+.btnbar{
+    margin-top:5%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: row;
+    height: 15%;
+    width: 20%;
+}
+
+.btn{
+    margin-left: 30%;
+    height: 40%;
+}

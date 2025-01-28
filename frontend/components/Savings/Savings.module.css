@@ -1,0 +1,15 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 13%;
+}
+
+.heading{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    margin-top: 13%;
+    margin-left: 20%;
+    margin-right: 5%;
+    font-size: 1.8rem;
+}
