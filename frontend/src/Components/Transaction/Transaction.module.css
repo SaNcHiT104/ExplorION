@@ -1,0 +1,41 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 13%;
+}
+
+.heading{
+    font-family: "Montserrat", sans-serif;
+    margin-top: 13%;
+    margin-left: 4%;
+    margin-right: 5%;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+}
+
+.btn{
+    background-color: #001437;
+    color: white;
+    height: 40%;
+    width: 30%;
+    margin-top: 10%;
+    margin-right: 15%;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.btn:hover {
+    
+    letter-spacing: 1px;
+    background-color: #001437;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(234, 243, 210) 0px 7px 29px 0px;
+  }
+  
+  .btn:active {
+    letter-spacing: 1px;
+    background-color:#001437;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(237, 248, 235) 0px 0px 0px 0px;
+  }
