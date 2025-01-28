@@ -2,12 +2,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import Account from './models/accounts.js';
-import Transaction from './models/transactions.js';  // Import the transaction model
+import Transaction from './models/transactions.js';
 import XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
-import multer from 'multer'; // For handling file uploads
+import multer from 'multer';
 import { fileURLToPath } from 'url';
+import moment from 'moment'; // Import moment for robust date parsing
 
 // Fix for __dirname in ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -39,18 +40,18 @@ if (!fs.existsSync(uploadDir)) {
 // Set up Multer storage
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadDir); // Ensure files are stored in the uploads directory
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName); // Add a unique timestamp to the file name
+    cb(null, uniqueName);
   },
 });
 
 const upload = multer({ storage: multerStorage });
 
 // Endpoint for handling file uploads
-app.post('/api/upload-excel', upload.single('file'), (req, res) => {
+/*app.post('/api/upload-excel', upload.single('file'), (req, res) => {
   console.log('Request received at /api/upload-excel');
 
   if (!req.file) {
@@ -74,21 +75,37 @@ app.post('/api/upload-excel', upload.single('file'), (req, res) => {
       const sheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json(sheet);
 
-      // Log the parsed data for debugging
       console.log('Parsed JSON data:', jsonData);
 
-      const fileType = req.body.fileType; // Get file type from the request body (account or transaction)
+      const fileType = req.body.fileType;
 
       if (fileType === 'account') {
-        // Handle account data parsing
         const validData = jsonData.map((row) => {
-          // Add logic similar to your account data validation
-        }).filter(item => item !== null);
+          let lastUpdated = null;
 
-        // Insert valid account data into MongoDB
+          if (row['Last Updated']) {
+            // Parse the date using moment with strict validation
+            lastUpdated = moment(row['Last Updated'], 'DD-MM-YYYY HH:mm', true).toDate();
+
+            console.log('Parsed LastUpdated:', lastUpdated);
+          }
+
+          const isValidDate = !isNaN(lastUpdated) && lastUpdated instanceof Date;
+
+          return {
+            UserID: row['User ID'] || null,
+            AccountID: row['Account ID'] || null,
+            AccountType: row['Account Type'] || '',
+            Balance: row['Balance'] || 0,
+            Currency: row['Currency'] || '',
+            BankName: row['Bank Name'] || '',
+            LastUpdated: isValidDate ? lastUpdated : null,
+          };
+        });
+
         Account.insertMany(validData)
           .then(() => {
-            fs.unlinkSync(filePath); // Remove file after processing
+            fs.unlinkSync(filePath);
             res.status(200).send('Account data successfully inserted.');
           })
           .catch((dbErr) => {
@@ -97,25 +114,22 @@ app.post('/api/upload-excel', upload.single('file'), (req, res) => {
             res.status(500).send('Error inserting account data into database.');
           });
       } else if (fileType === 'transaction') {
-        // Handle transaction data parsing
         const validTransactions = jsonData.map((row) => {
-          // Parse and validate transaction rows here, similar to account data
           return {
             TransactionID: row['Transaction ID'] || null,
             AccountID: row['Account ID'] || null,
-            Date: new Date(row['Date']),
+            Date: moment(row['Date'], 'DD-MM-YYYY', true).toDate(),
             Description: row['Description'] || '',
             Category: row['Category'] || '',
             Amount: row['Amount (EUR)'] || 0,
             Currency: row['Currency'] || '',
             Type: row['Type'] || '',
           };
-        }).filter(item => item !== null);
+        });
 
-        // Insert valid transactions into MongoDB
         Transaction.insertMany(validTransactions)
           .then(() => {
-            fs.unlinkSync(filePath); // Remove file after processing
+            fs.unlinkSync(filePath);
             res.status(200).send('Transaction data successfully inserted.');
           })
           .catch((dbErr) => {
@@ -132,91 +146,143 @@ app.post('/api/upload-excel', upload.single('file'), (req, res) => {
       res.status(500).send('Error processing uploaded file.');
     }
   });
-});
+}); */
 
+const excelSerialToDate = (serial) => {
+  // Excel serial date start from Jan 1, 1900
+  const excelEpoch = new Date(Date.UTC(1900, 0, 1));
+  // Subtract 1 to account for Excel's incorrect leap year handling
+  const daysSinceEpoch = serial - 1;
+  // Add the days to the epoch
+  return new Date(excelEpoch.getTime() + daysSinceEpoch * 24 * 60 * 60 * 1000);
+};
 
-app.get('/api/transactions/:userId', async (req, res) => {
+app.post('/api/upload-excel', upload.single('file'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+
+  const filePath = path.join(uploadDir, req.file.filename);
+
   try {
-    const transactions = await Transaction.find({ AccountID: req.params.userId });
-    res.json(transactions);
+    const workbook = XLSX.readFile(filePath);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+    console.log('Parsed JSON data:', jsonData);
+
+    const fileType = req.body.fileType;
+
+    if (fileType === 'transaction') {
+      // Validate and map transaction data
+      const transactions = jsonData.map((row) => {
+        let date;
+
+        if (typeof row['Date'] === 'number') {
+          // Convert Excel serial date to JavaScript date
+          date = excelSerialToDate(row['Date']);
+        } else if (typeof row['Date'] === 'string') {
+          // Parse string date in MM/DD/YYYY format
+          date = moment(row['Date'], 'MM/DD/YYYY', true).toDate();
+        } else {
+          throw new Error(`Invalid Date format: ${row['Date']}`);
+        }
+
+        if (isNaN(date)) {
+          throw new Error(`Invalid Date: ${row['Date']}`);
+        }
+
+        return {
+          AccountID: row['Account ID'] || null,
+          Date: date,
+          Category: row['Category'] || '',
+          Description: row['Description'] || '',
+          Amount: parseFloat(row['Amount']) || 0,
+          Currency: row['Currency'] || '',
+          TransactionType: row['Transaction Type'] || '',
+        };
+      });
+
+      // Insert transactions into MongoDB
+      await Transaction.insertMany(transactions);
+      fs.unlinkSync(filePath);
+      return res.status(200).send('Transaction data successfully inserted.');
+    }
+
+    res.status(400).send('Invalid file type.');
   } catch (error) {
-    res.status(500).json({ error: "Error fetching transactions" });
+    console.error('Error processing file:', error.message);
+    fs.unlinkSync(filePath); // Clean up the file
+    res.status(500).send(`Error processing uploaded file: ${error.message}`);
   }
 });
 
-app.get('/api/user/:userId', async (req, res) => {
-  try {
-    const user = await Account.findOne({ UserID: String(req.params.userId) }); // Ensure string match
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+app.get('/api/accounts-and-transactions', async (req, res) => {
+  const userId = req.query.userId; // Get userId from the request
+  
+  try {
+    // Fetch all accounts for the given userId
+    const accounts = await Account.find({ UserID: userId });
+
+    if (accounts.length === 0) {
+      return res.status(404).send('No accounts found for this user.');
     }
 
-    res.json(user);
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    res.status(500).json({ error: "Error fetching user data" });
-  }
-});
-
-
-app.get('/api/accounts/:userId', async (req, res) => {
-  try {
-    const accounts = await Account.find({ UserID: req.params.userId });
-
-    if (!accounts || accounts.length === 0) {
-      return res.status(404).json({ error: "No accounts found for this user." });
-    }
-
-    res.json(accounts);
-  } catch (error) {
-    console.error("Error fetching accounts:", error);
-    res.status(500).json({ error: "Error fetching accounts" });
-  }
-});
-
-app.post('/api/transactions', async (req, res) => {
-  console.log("inpost transactions - ", req.body)
-  try {
-    const { accountIds } = req.body;
-    if (!accountIds || accountIds.length === 0) {
-      return res.status(400).json({ error: "No account IDs provided" });
-    }
-    
+    // Fetch all transactions corresponding to the found accounts
+    const accountIds = accounts.map((account) => account.AccountID);
     const transactions = await Transaction.find({ AccountID: { $in: accountIds } });
-    res.json(transactions);
+    // Combine accounts with transactions
+    const response = accounts.map((account) => {
+      // Add all transactions related to this account, which already include AccountID
+      const accountTransactions = transactions.filter(
+        (transaction) => transaction.AccountID == account.AccountID
+      );
+
+      return {
+        AccountID: account.AccountID,
+        BankName: account.BankName,
+        Balance: account.Balance,
+        Currency: account.Currency,
+        AccountType: account.AccountType,
+        transactions: accountTransactions, // Return all transactions associated with this account
+      };
+    });
+
+    // Send the combined data (accounts and their respective transactions)
+    res.json(response);
   } catch (error) {
-    res.status(500).json({ error: "Error fetching transactions" });
+    console.error('Error fetching accounts and transactions:', error);
+    res.status(500).send('Error fetching accounts and transactions');
   }
 });
 
 
-
-app.get('/api/transactions/:userId', async (req, res) => {
+app.get('/api/SavingAccount', async (req, res) => {
   try {
-    // First, find all accounts associated with the given user
-    const accounts = await Account.find({ UserID: req.params.userId });
-
-    if (!accounts || accounts.length === 0) {
-      return res.status(404).json({ error: "No accounts found for this user" });
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ error: 'UserId is required' });
     }
 
-    // Extract all account IDs from the user's accounts
-    const accountIds = accounts.map(account => account.AccountID);
+    // Fetch the savings accounts from the database based on userId
+    const userSavings = await Account.find({ UserID: userId });
 
-    // Fetch transactions for all these account IDs
-    const transactions = await Transaction.find({ AccountID: { $in: accountIds } });
+    if (userSavings.length === 0) {
+      return res.status(404).json({ error: 'No savings accounts found for this user' });
+    }
 
-    res.json(transactions);
+    // Return the data as a response
+    res.json(userSavings);
   } catch (error) {
-    console.error("Error fetching transactions:", error);
-    res.status(500).json({ error: "Error fetching transactions" });
+    console.error("Error fetching savings account data:", error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
 
-
-
+// Other endpoints remain unchanged
 
 // Start the server
 app.listen(port, () => {

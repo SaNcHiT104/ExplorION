@@ -4,12 +4,11 @@ import mongoose from 'mongoose';
 const accountSchema = new mongoose.Schema({
   AccountID: { type: Number, required: true },
   UserID: { type: Number, required: true },
-  AccountName: { type: String, required: true },
   AccountType: { type: String, required: true },
   Balance: { type: mongoose.Types.Decimal128, required: true }, // Using Decimal128 for better precision
   Currency: { type: String, required: true },
   BankName: { type: String, required: true },
-  LastSynced: { type: Date, default :null },
+  LastUpdated: { type: Date, require: true }, // Store as Date
 });
 
 // Convert Decimal128 to string when retrieving data
