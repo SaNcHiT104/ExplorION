@@ -16,7 +16,7 @@
   height: 50%;
   margin: 10px;
   padding: 20px;
-  border-radius: 10px;
+
   box-shadow: 0 2px 5px rgba(211, 98, 98, 0.1);
 }
 
@@ -39,7 +39,7 @@
 .moreAccountBtn {
   width: 70%;
   height: 25%;
-  border-radius: 30%;
+  border-radius: 50px;
   cursor: pointer;
 }
 
@@ -79,19 +79,19 @@
   /* background:linear-gradient(to right, rgb(97, 228, 71), #ffffff);; */
   color: black;
   width: 43%;
-  border-radius: 10%;
+  border-radius: 50px;
 }
  .sendBtn {
   /* background:linear-gradient(to left, rgb(211, 32, 32), #ffffff);; */
   color: black;
   width: 43%;
-  border-radius: 10%;
+  border-radius: 50px;
 }
 
 .moreBtn {
   background-color: #ffffff;
   color: black;
-  border-radius: 20%;
+  border-radius: 50px;
   width: 19%;
 }
 
@@ -156,7 +156,7 @@
   width: 140px;
   background-color: white;
   color: black;
-  border-radius: 8px;
+  border-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 100;
