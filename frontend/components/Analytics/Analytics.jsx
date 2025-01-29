@@ -1,9 +1,12 @@
+import { PieChart } from "recharts";
 import BarChart from "../Charts/barChart";
+import PieChartComponent from "../Charts/PieChart";
 // import CandlestickChart from "../Charts/CandlestickChart";
 import DiscChartComponent from "../Charts/DiscChartComponent";
 // import ChartComponent from "../Charts/LineChart";
 import classes from "./Analytics.module.css";
 // import AssetRadarChart from "../Charts/CandlestickChart";
+import CircularGraph from "../Charts/CircularGraph";
 import { motion } from "framer-motion";
 import { useState } from "react";
 export default function Analytics() {
@@ -20,6 +23,14 @@ export default function Analytics() {
     "The Vanguard ETF Stock maintained relatively stable values, but still exhibited some fluctuations, indicating moderate risk compared to other stock investments.",
     "Bitcoin Stock has displayed large value differences, indicating high volatility, making it a risky option for investors who prefer stability.",
   ];
+  const assetanalysis = [
+    "Stocks constitute the largest portion of the portfolio, making it heavily reliant on market trends and volatility.",
+    "Bonds hold a significant share, providing stability and reducing overall portfolio risk.",
+    "Real Estate represents a moderate portion, suggesting a balanced approach to long-term asset appreciation.",
+    "Cash allocation is relatively low, indicating a preference for invested capital over liquid assets.",
+    "Cryptocurrency has the smallest share, highlighting a cautious stance on high-risk digital assets."
+];
+
   const [state, changeState] = useState(1);
   let content = (
     <>
@@ -86,7 +97,7 @@ export default function Analytics() {
   if (state == 3) {
     content = (
       <>
-        <div className={classes.btnbar}>
+        <div className={classes.btnbar1}>
           <button className={classes.btn} onClick={() => changeState(1)}>
             Value OverTime
           </button>
@@ -97,6 +108,20 @@ export default function Analytics() {
             Asset Distribution
           </button>
         </div>
+        <PieChartComponent/>
+        <div className={classes.content}>
+        {assetanalysis.map((item, index) => (
+          <motion.div
+            key={index}
+            className={`${classes.analysisItem} ${classes[`item${index + 1}`]}`}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            {item}
+          </motion.div>
+        ))}
+      </div>
       </>
     );
   }
